@@ -22,8 +22,7 @@ This example shows how to create a simple weather API route using Plurality in a
 // app/api/weather/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { Swarm } from "plurality";
-import { Agent, AgentFunction, Response } from "plurality/types";
+import { Swarm, Agent, AgentFunction, Response } from "plurality";
 
 // Initialize OpenAI client and Swarm
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -85,8 +84,7 @@ This example demonstrates how to create a multi-language chat API route using Pl
 // app/api/chat/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { Swarm } from "plurality";
-import { Response, AgentFunction, Agent } from "plurality/types";
+import { Swarm, Agent, AgentFunction, Response } from "plurality";
 
 // Initialize OpenAI client and Swarm
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
