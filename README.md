@@ -10,6 +10,18 @@ Install Plurality using npm:
 npm install @pluralityai/agents
 ```
 
+or
+
+```bash
+yarn add @pluralityai/agents
+```
+
+or
+
+```bash
+pnpm add @pluralityai/agents
+```
+
 ## Usage
 
 Here are two examples demonstrating how to use Plurality in a Next.js application using the App Router:
@@ -21,41 +33,38 @@ This example shows how to create a simple weather API route using Plurality in a
 ```typescript
 // app/api/weather/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
-import { Swarm, Agent, AgentFunction, Response } from "@pluralityai/agents";
+import { Swarm, Agent, AgentFunction } from "@pluralityai/agents";
 
-// Initialize OpenAI client and Swarm
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const swarm = new Swarm(openai);
+// Initialize Swarm with your API key
+const swarm = new Swarm("your-api-key-here");
 
-// Define the getWeather function
-const getWeatherFunction: AgentFunction = Object.assign(
-  function getWeather(args: { location: string }): string {
+// Define the get weather function
+const getWeatherFunction: AgentFunction = {
+  name: "getWeather",
+  func: ({ location }) => {
     // In a real app, you would call a weather API here
     return JSON.stringify({ temp: 67, unit: "F" });
   },
-  {
+  descriptor: {
+    name: "getWeather",
     description: "Gets the weather for a given location",
     parameters: {
-      type: "object",
-      properties: {
-        location: {
-          type: "string",
-          description: "The location to get the weather for",
-        },
+      location: {
+        type: "string",
+        required: true,
+        description: "The location to get the weather for",
       },
-      required: ["location"],
     },
-  }
-);
+  },
+};
 
 // Create a Weather Agent
 const weatherAgent = new Agent({
   name: "WeatherAgent",
+  instructions:
+    "You are a helpful weather agent. Use the getWeather function to provide weather information.",
   model: "gpt-4o",
-  instructions: "You are a helpful weather agent.",
   functions: [getWeatherFunction],
-  parallel_tool_calls: false,
 });
 
 export async function POST(request: NextRequest) {
@@ -63,7 +72,10 @@ export async function POST(request: NextRequest) {
   const messages = [{ role: "user", content: query }];
 
   try {
-    const response: Response = await swarm.run(weatherAgent, messages);
+    const response = await swarm.run({
+      agent: weatherAgent,
+      messages,
+    });
     const result = response.messages[response.messages.length - 1].content;
     return NextResponse.json({ result });
   } catch (error) {
@@ -83,45 +95,50 @@ This example demonstrates how to create a multi-language chat API route using Pl
 ```typescript
 // app/api/chat/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
-import { Swarm, Agent, AgentFunction, Response } from "@pluralityai/agents";
+import { Swarm, Agent, AgentFunction } from "@pluralityai/agents";
 
-// Initialize OpenAI client and Swarm
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const swarm = new Swarm(openai);
+// Initialize Swarm with your API key
+const swarm = new Swarm("your-api-key-here");
 
+// Define the transfer to Spanish agent function
+const transferToSpanishAgent: AgentFunction = {
+  name: "transferToSpanishAgent",
+  func: () => {
+    console.log("Transferring to Spanish Agent");
+    return spanishAgent;
+  },
+  descriptor: {
+    name: "transferToSpanishAgent",
+    description: "Transfer Spanish speaking users to the Spanish Agent",
+    parameters: {},
+  },
+};
+
+// Create an English Agent
 const englishAgent = new Agent({
   name: "English Agent",
   instructions:
-    "You only speak English. If a user speaks Spanish, use the transfer_to_spanish_agent function.",
+    "You only speak English. If a user speaks Spanish, use the transferToSpanishAgent function.",
   model: "gpt-4o",
+  functions: [transferToSpanishAgent],
 });
 
+// Create a Spanish Agent
 const spanishAgent = new Agent({
   name: "Spanish Agent",
   instructions: "Solo hablas español.",
   model: "gpt-4o",
 });
 
-const transferToSpanishAgent: AgentFunction = Object.assign(
-  function transfer_to_spanish_agent(): Agent {
-    console.log("Transferring to Spanish Agent");
-    return spanishAgent;
-  },
-  {
-    description: "Transfer Spanish speaking users to the Spanish Agent",
-    parameters: { type: "object", properties: {} },
-  }
-);
-
-englishAgent.functions.push(transferToSpanishAgent);
-
 export async function POST(request: NextRequest) {
   const { message } = await request.json();
   const messages = [{ role: "user", content: message }];
 
   try {
-    const response: Response = await swarm.run(englishAgent, messages);
+    const response = await swarm.run({
+      agent: englishAgent,
+      messages,
+    });
     const result = response.messages[response.messages.length - 1].content;
     return NextResponse.json({ result });
   } catch (error) {
@@ -133,6 +150,14 @@ export async function POST(request: NextRequest) {
   }
 }
 ```
+
+These examples demonstrate:
+
+1. How to initialize a `Swarm` instance with your API key.
+2. Defining `AgentFunction`s for specific tasks (weather information and language transfer).
+3. Creating `Agent`s with specific instructions and functions.
+4. Implementing Next.js API routes that use the `Swarm` to process incoming messages.
+5. Handling different scenarios: weather queries and multi-language support.
 
 ## Contributing
 

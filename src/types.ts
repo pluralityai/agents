@@ -1,98 +1,108 @@
-// types.ts
-export type AgentFunction = {
-    (args: any): string | Agent | object;
-    name: string;
-    description?: string;
-    parameters?: { [key: string]: any };
-    required?: string[];
-  };
-  
-  export class Agent {
-    name: string;
-    model: string;
-    instructions: string | ((contextVariables: { [key: string]: any }) => string);
-    functions: AgentFunction[];
-    tool_choice?: 'auto' | 'none' | { type: 'function'; function: { name: string } };
-    parallel_tool_calls: boolean;
-  
-    constructor(init?: Partial<Agent>) {
-      this.name = init?.name ?? "Agent";
-      this.model = init?.model ?? "gpt-4";
-      this.instructions = init?.instructions ?? "You are a helpful agent.";
-      this.functions = init?.functions ?? [];
-      this.tool_choice = init?.tool_choice;
-      this.parallel_tool_calls = init?.parallel_tool_calls ?? true;
-    }
-  }
-  
-  export class Response {
-    messages: any[];
-    agent?: Agent;
-    context_variables: { [key: string]: any };
-  
-    constructor(init?: Partial<Response>) {
-      this.messages = init?.messages ?? [];
-      this.agent = init?.agent;
-      this.context_variables = init?.context_variables ?? {};
-    }
-  }
-  
-  export class Result {
-    value: string;
-    agent?: Agent;
-    context_variables: { [key: string]: any };
-  
-    constructor(init?: Partial<Result>) {
-      this.value = init?.value ?? "";
-      this.agent = init?.agent;
-      this.context_variables = init?.context_variables ?? {};
-    }
-  }
-  
-  export class Function {
-    arguments: string;
-    name: string;
-  
-    constructor(init?: Partial<Function>) {
-      this.arguments = init?.arguments ?? "";
-      this.name = init?.name ?? "";
-    }
-  }
-  
-  export class ChatCompletionMessageToolCall {
-    id: string;
-    function: Function;
+/**
+ * Describes the structure of a function that can be called by an agent.
+ */
+export interface FunctionDescriptor {
+  /** The name of the function */
+  name: string;
+  /** A brief description of what the function does */
+  description: string;
+  /** An object describing the parameters of the function */
+  parameters: Record<string, {
+    /** The data type of the parameter */
     type: string;
-  
-    constructor(init?: Partial<ChatCompletionMessageToolCall>) {
-      this.id = init?.id ?? "";
-      this.function = init?.function ?? new Function();
-      this.type = init?.type ?? "";
-    }
+    /** Whether the parameter is required or optional */
+    required: boolean;
+    /** A brief description of the parameter */
+    description: string
+  }>;
+}
+
+/**
+ * Represents a function that can be executed by an agent.
+ */
+export interface AgentFunction {
+  /** The name of the function */
+  name: string;
+  /** The actual function to be executed */
+  func: (args: Record<string, any>) => string | Agent | Record<string, any>;
+  /** The descriptor providing metadata about the function */
+  descriptor: FunctionDescriptor;
+}
+
+/**
+ * Represents an agent interacting with the Swarm.
+ */
+export class Agent {
+  /** The name of the agent */
+  name: string;
+  /** The model used by the agent (e.g., 'gpt-4') */
+  model: string;
+  /** Instructions for the agent, either as a string or a function that generates instructions */
+  instructions: string | ((contextVariables: Record<string, any>) => string);
+  /** An array of functions available to the agent */
+  functions: AgentFunction[];
+  /** Specifies which tool (function) the agent should use, if any */
+  tool_choice?: string;
+  /** Whether the agent can call multiple tools in parallel */
+  parallel_tool_calls: boolean;
+
+  constructor(params: Partial<Agent> = {}) {
+    this.name = params.name || 'Agent';
+    this.model = params.model || 'gpt-4o';
+    this.instructions = params.instructions || 'You are a helpful agent.';
+    this.functions = params.functions || [];
+    this.tool_choice = params.tool_choice;
+    this.parallel_tool_calls = params.parallel_tool_calls !== undefined ? params.parallel_tool_calls : true;
   }
-  
-  export class ChatCompletionMessage {
-    role: string;
-    content: string;
-    function_call?: any;
-    tool_calls?: ChatCompletionMessageToolCall[];
-    sender?: string;
-  
-    constructor(init?: Partial<ChatCompletionMessage>) {
-      this.role = init?.role ?? "";
-      this.content = init?.content ?? "";
-      this.function_call = init?.function_call;
-      this.tool_calls = init?.tool_calls;
-      this.sender = init?.sender;
-    }
-  
-    toJSON() {
-      return {
-        role: this.role,
-        content: this.content,
-        function_call: this.function_call,
-        tool_calls: this.tool_calls,
-        sender: this.sender,
-      };
-    }
+}
+
+/**
+ * Represents the response from the Swarm.
+ */
+export class Response {
+  /** An array of messages exchanged during the interaction */
+  messages: Array<any>;
+  /** The agent involved in the interaction, if applicable */
+  agent?: Agent;
+  /** Variables providing context for the interaction */
+  context_variables: Record<string, any>;
+
+  constructor(params: Partial<Response> = {}) {
+    this.messages = params.messages || [];
+    this.agent = params.agent;
+    this.context_variables = params.context_variables || {};
   }
+}
+
+/**
+ * Represents the result of an agent's action or computation.
+ */
+export class Result {
+  /** The resulting value or output */
+  value: string;
+  /** The agent that produced the result, if applicable */
+  agent?: Agent;
+  /** Variables providing context for the result */
+  context_variables: Record<string, any>;
+
+  constructor(params: Partial<Result> = {}) {
+    this.value = params.value || '';
+    this.agent = params.agent;
+    this.context_variables = params.context_variables || {};
+  }
+}
+
+/**
+ * Represents a function call made by an agent.
+ */
+export class ToolFunction {
+  /** A JSON string containing the arguments for the function call */
+  arguments: string;
+  /** The name of the function being called */
+  name: string;
+
+  constructor(params: Partial<ToolFunction> = {}) {
+    this.arguments = params.arguments || '';
+    this.name = params.name || '';
+  }
+}
