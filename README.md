@@ -144,5 +144,5 @@ This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENS
 
 ## Acknowledgments
 
-This project is a TypeScript port of [Original Project Name] by OpenAI.
+This project is a TypeScript port of Swarms by OpenAI.
 The original project is licensed under the Apache License, Version 2.0.
