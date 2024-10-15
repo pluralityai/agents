@@ -1,4 +1,3 @@
-import {format} from 'date-fns';
 import {FunctionDescriptor} from './types';
 
 
@@ -8,12 +7,12 @@ import {FunctionDescriptor} from './types';
  * @param args - The message parts to be logged.
  */
 export function logDebugMessage(debug: boolean, ...args: any[]): void {
-    if (!debug) return;
-    const timestamp = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
-    const message = args.map(arg => String(arg)).join(' ');
-    console.log(`\x1b[97m[\x1b[90m${timestamp}\x1b[97m]\x1b[90m ${message}\x1b[0m`);
+  if (!debug) return;
+  const now = new Date();
+  const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+  const message = args.map(arg => String(arg)).join(' ');
+  console.log(`\x1b[97m[\x1b[90m${timestamp}\x1b[97m]\x1b[90m ${message}\x1b[0m`);
 }
-
 /**
  * Recursively merges fields from source into target.
  * @param target - The object to merge into.
