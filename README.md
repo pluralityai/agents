@@ -7,7 +7,7 @@ Plurality is a lightweight, ergonomic TypeScript library for multi-agent orchest
 Install Plurality using npm:
 
 ```bash
-npm install plurality
+npm install @pluralityai/agents
 ```
 
 ## Usage
@@ -22,7 +22,7 @@ This example shows how to create a simple weather API route using Plurality in a
 // app/api/weather/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { Swarm, Agent, AgentFunction, Response } from "plurality";
+import { Swarm, Agent, AgentFunction, Response } from "@pluralityai/agents";
 
 // Initialize OpenAI client and Swarm
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -84,7 +84,7 @@ This example demonstrates how to create a multi-language chat API route using Pl
 // app/api/chat/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { Swarm, Agent, AgentFunction, Response } from "plurality";
+import { Swarm, Agent, AgentFunction, Response } from "@pluralityai/agents";
 
 // Initialize OpenAI client and Swarm
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

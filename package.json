@@ -1,6 +1,6 @@
 {
-  "name": "plurality-ai",
-  "version": "0.0.3",
+  "name": "@pluralityai/agents",
+  "version": "0.0.4",
   "description": "A lightweight, ergonomic TypeScript library for multi-agent orchestration.",
   "type": "module",
   "author": "Plurality AI <support@plurality.ai>",
@@ -42,10 +42,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/plurality-ai/plurality-ai.git"
+    "url": "https://github.com/plurality-ai/agents.git"
   },
   "bugs": {
-    "url": "https://github.com/plurality-ai/plurality-ai/issues"
+    "url": "https://github.com/plurality-ai/agents/issues"
   },
-  "homepage": "https://github.com/plurality-ai/plurality-ai#readme"
+  "homepage": "https://github.com/plurality-ai/agents#readme"
 }
