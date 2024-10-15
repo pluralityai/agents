@@ -141,3 +141,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+This project is a TypeScript port of [Original Project Name] by OpenAI.
+The original project is licensed under the Apache License, Version 2.0.
