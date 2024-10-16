@@ -1,6 +1,8 @@
-# Plurality
+![Plurality Agents](./assets/plurality-agents.svg)
 
-Plurality is a lightweight, ergonomic TypeScript library for multi-agent orchestration.
+# Plurality AI Agents
+
+Plurality AI Agents is a lightweight, ergonomic TypeScript library for multi-agent orchestration.
 
 ## Installation
 
