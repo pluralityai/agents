@@ -12,7 +12,7 @@
     }
   </style>
   
-  <rect width="100%" height="100%" fill="#1a1a1a"/>
+  <!-- <rect width="100%" height="100%" fill="#1a1a1a"/> -->
   
   <g class="agent" style="animation-delay: -0s;">
     <circle cx="150" cy="60" r="3" fill="#ff6b6b"/>
@@ -128,5 +128,4 @@
     <line x1="80" y1="85" x2="85" y2="88" stroke="#feca57" stroke-width="1"/>
   </g>
   
-  <text x="150" y="115" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">Plurality Agents</text>
 </svg>

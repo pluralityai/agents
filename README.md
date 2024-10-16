@@ -1,4 +1,6 @@
-![Plurality Agents](./assets/swarm-animation.svg)
+<img src="./assets/swarm-animation.svg" alt="Plurality Agents" height="150" width="700">
+
+# Plurality AI Agents
 
 Plurality AI Agents is a lightweight, ergonomic TypeScript library for multi-agent orchestration.
 
@@ -171,3 +173,7 @@ This project is licensed under the Apache-2.0 License - see the [LICENSE](LICENS
 
 This project is a TypeScript port of Swarms by OpenAI.
 The original project is licensed under the Apache License, Version 2.0.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=pluralityai/agents&type=Date)](https://star-history.com/#pluralityai/agents&Date)
