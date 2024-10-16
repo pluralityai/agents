@@ -1,7 +1,5 @@
 ![Plurality Agents](./assets/swarm-animation.svg)
 
-# Plurality AI Agents
-
 Plurality AI Agents is a lightweight, ergonomic TypeScript library for multi-agent orchestration.
 
 ## Installation

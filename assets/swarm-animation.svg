@@ -1,13 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120">
   <style>
     .agent {
       animation: move 20s infinite linear;
     }
     @keyframes move {
       0% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(150px, 75px) rotate(90deg); }
-      50% { transform: translate(0, 150px) rotate(180deg); }
-      75% { transform: translate(-150px, 75px) rotate(270deg); }
+      25% { transform: translate(150px, 45px) rotate(90deg); }
+      50% { transform: translate(0, 90px) rotate(180deg); }
+      75% { transform: translate(-150px, 45px) rotate(270deg); }
       100% { transform: translate(0, 0) rotate(360deg); }
     }
   </style>
@@ -15,118 +15,118 @@
   <rect width="100%" height="100%" fill="#1a1a1a"/>
   
   <g class="agent" style="animation-delay: -0s;">
-    <circle cx="150" cy="100" r="4" fill="#ff6b6b"/>
-    <line x1="150" y1="100" x2="157" y2="96" stroke="#ff6b6b" stroke-width="1.5"/>
-    <line x1="150" y1="100" x2="157" y2="104" stroke="#ff6b6b" stroke-width="1.5"/>
+    <circle cx="150" cy="60" r="3" fill="#ff6b6b"/>
+    <line x1="150" y1="60" x2="155" y2="57" stroke="#ff6b6b" stroke-width="1"/>
+    <line x1="150" y1="60" x2="155" y2="63" stroke="#ff6b6b" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -1s;">
-    <circle cx="170" cy="120" r="4" fill="#4ecdc4"/>
-    <line x1="170" y1="120" x2="177" y2="116" stroke="#4ecdc4" stroke-width="1.5"/>
-    <line x1="170" y1="120" x2="177" y2="124" stroke="#4ecdc4" stroke-width="1.5"/>
+    <circle cx="170" cy="70" r="3" fill="#4ecdc4"/>
+    <line x1="170" y1="70" x2="175" y2="67" stroke="#4ecdc4" stroke-width="1"/>
+    <line x1="170" y1="70" x2="175" y2="73" stroke="#4ecdc4" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -2s;">
-    <circle cx="130" cy="80" r="4" fill="#45b7d1"/>
-    <line x1="130" y1="80" x2="137" y2="76" stroke="#45b7d1" stroke-width="1.5"/>
-    <line x1="130" y1="80" x2="137" y2="84" stroke="#45b7d1" stroke-width="1.5"/>
+    <circle cx="130" cy="50" r="3" fill="#45b7d1"/>
+    <line x1="130" y1="50" x2="135" y2="47" stroke="#45b7d1" stroke-width="1"/>
+    <line x1="130" y1="50" x2="135" y2="53" stroke="#45b7d1" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -3s;">
-    <circle cx="190" cy="90" r="4" fill="#ff9ff3"/>
-    <line x1="190" y1="90" x2="197" y2="86" stroke="#ff9ff3" stroke-width="1.5"/>
-    <line x1="190" y1="90" x2="197" y2="94" stroke="#ff9ff3" stroke-width="1.5"/>
+    <circle cx="190" cy="55" r="3" fill="#ff9ff3"/>
+    <line x1="190" y1="55" x2="195" y2="52" stroke="#ff9ff3" stroke-width="1"/>
+    <line x1="190" y1="55" x2="195" y2="58" stroke="#ff9ff3" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -4s;">
-    <circle cx="110" cy="110" r="4" fill="#feca57"/>
-    <line x1="110" y1="110" x2="117" y2="106" stroke="#feca57" stroke-width="1.5"/>
-    <line x1="110" y1="110" x2="117" y2="114" stroke="#feca57" stroke-width="1.5"/>
+    <circle cx="110" cy="65" r="3" fill="#feca57"/>
+    <line x1="110" y1="65" x2="115" y2="62" stroke="#feca57" stroke-width="1"/>
+    <line x1="110" y1="65" x2="115" y2="68" stroke="#feca57" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -5s;">
-    <circle cx="200" cy="140" r="4" fill="#ff6b6b"/>
-    <line x1="200" y1="140" x2="207" y2="136" stroke="#ff6b6b" stroke-width="1.5"/>
-    <line x1="200" y1="140" x2="207" y2="144" stroke="#ff6b6b" stroke-width="1.5"/>
+    <circle cx="210" cy="80" r="3" fill="#ff6b6b"/>
+    <line x1="210" y1="80" x2="215" y2="77" stroke="#ff6b6b" stroke-width="1"/>
+    <line x1="210" y1="80" x2="215" y2="83" stroke="#ff6b6b" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -6s;">
-    <circle cx="100" cy="60" r="4" fill="#48dbfb"/>
-    <line x1="100" y1="60" x2="107" y2="56" stroke="#48dbfb" stroke-width="1.5"/>
-    <line x1="100" y1="60" x2="107" y2="64" stroke="#48dbfb" stroke-width="1.5"/>
+    <circle cx="90" cy="40" r="3" fill="#48dbfb"/>
+    <line x1="90" y1="40" x2="95" y2="37" stroke="#48dbfb" stroke-width="1"/>
+    <line x1="90" y1="40" x2="95" y2="43" stroke="#48dbfb" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -7s;">
-    <circle cx="220" cy="110" r="4" fill="#ff9ff3"/>
-    <line x1="220" y1="110" x2="227" y2="106" stroke="#ff9ff3" stroke-width="1.5"/>
-    <line x1="220" y1="110" x2="227" y2="114" stroke="#ff9ff3" stroke-width="1.5"/>
+    <circle cx="230" cy="60" r="3" fill="#ff9ff3"/>
+    <line x1="230" y1="60" x2="235" y2="57" stroke="#ff9ff3" stroke-width="1"/>
+    <line x1="230" y1="60" x2="235" y2="63" stroke="#ff9ff3" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -8s;">
-    <circle cx="80" cy="130" r="4" fill="#54a0ff"/>
-    <line x1="80" y1="130" x2="87" y2="126" stroke="#54a0ff" stroke-width="1.5"/>
-    <line x1="80" y1="130" x2="87" y2="134" stroke="#54a0ff" stroke-width="1.5"/>
+    <circle cx="70" cy="75" r="3" fill="#54a0ff"/>
+    <line x1="70" y1="75" x2="75" y2="72" stroke="#54a0ff" stroke-width="1"/>
+    <line x1="70" y1="75" x2="75" y2="78" stroke="#54a0ff" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -9s;">
-    <circle cx="240" cy="80" r="4" fill="#5f27cd"/>
-    <line x1="240" y1="80" x2="247" y2="76" stroke="#5f27cd" stroke-width="1.5"/>
-    <line x1="240" y1="80" x2="247" y2="84" stroke="#5f27cd" stroke-width="1.5"/>
+    <circle cx="250" cy="45" r="3" fill="#5f27cd"/>
+    <line x1="250" y1="45" x2="255" y2="42" stroke="#5f27cd" stroke-width="1"/>
+    <line x1="250" y1="45" x2="255" y2="48" stroke="#5f27cd" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -10s;">
-    <circle cx="60" cy="100" r="4" fill="#ff6b6b"/>
-    <line x1="60" y1="100" x2="67" y2="96" stroke="#ff6b6b" stroke-width="1.5"/>
-    <line x1="60" y1="100" x2="67" y2="104" stroke="#ff6b6b" stroke-width="1.5"/>
+    <circle cx="50" cy="60" r="3" fill="#ff6b6b"/>
+    <line x1="50" y1="60" x2="55" y2="57" stroke="#ff6b6b" stroke-width="1"/>
+    <line x1="50" y1="60" x2="55" y2="63" stroke="#ff6b6b" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -11s;">
-    <circle cx="260" cy="140" r="4" fill="#ff9ff3"/>
-    <line x1="260" y1="140" x2="267" y2="136" stroke="#ff9ff3" stroke-width="1.5"/>
-    <line x1="260" y1="140" x2="267" y2="144" stroke="#ff9ff3" stroke-width="1.5"/>
+    <circle cx="270" cy="80" r="3" fill="#ff9ff3"/>
+    <line x1="270" y1="80" x2="275" y2="77" stroke="#ff9ff3" stroke-width="1"/>
+    <line x1="270" y1="80" x2="275" y2="83" stroke="#ff9ff3" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -12s;">
-    <circle cx="40" cy="70" r="4" fill="#feca57"/>
-    <line x1="40" y1="70" x2="47" y2="66" stroke="#feca57" stroke-width="1.5"/>
-    <line x1="40" y1="70" x2="47" y2="74" stroke="#feca57" stroke-width="1.5"/>
+    <circle cx="30" cy="40" r="3" fill="#feca57"/>
+    <line x1="30" y1="40" x2="35" y2="37" stroke="#feca57" stroke-width="1"/>
+    <line x1="30" y1="40" x2="35" y2="43" stroke="#feca57" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -13s;">
-    <circle cx="280" cy="110" r="4" fill="#48dbfb"/>
-    <line x1="280" y1="110" x2="287" y2="106" stroke="#48dbfb" stroke-width="1.5"/>
-    <line x1="280" y1="110" x2="287" y2="114" stroke="#48dbfb" stroke-width="1.5"/>
+    <circle cx="290" cy="65" r="3" fill="#48dbfb"/>
+    <line x1="290" y1="65" x2="295" y2="62" stroke="#48dbfb" stroke-width="1"/>
+    <line x1="290" y1="65" x2="295" y2="68" stroke="#48dbfb" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -14s;">
-    <circle cx="20" cy="130" r="4" fill="#ff6b6b"/>
-    <line x1="20" y1="130" x2="27" y2="126" stroke="#ff6b6b" stroke-width="1.5"/>
-    <line x1="20" y1="130" x2="27" y2="134" stroke="#ff6b6b" stroke-width="1.5"/>
+    <circle cx="10" cy="75" r="3" fill="#ff6b6b"/>
+    <line x1="10" y1="75" x2="15" y2="72" stroke="#ff6b6b" stroke-width="1"/>
+    <line x1="10" y1="75" x2="15" y2="78" stroke="#ff6b6b" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -15s;">
-    <circle cx="300" cy="80" r="4" fill="#54a0ff"/>
-    <line x1="300" y1="80" x2="307" y2="76" stroke="#54a0ff" stroke-width="1.5"/>
-    <line x1="300" y1="80" x2="307" y2="84" stroke="#54a0ff" stroke-width="1.5"/>
+    <circle cx="150" cy="30" r="3" fill="#54a0ff"/>
+    <line x1="150" y1="30" x2="155" y2="27" stroke="#54a0ff" stroke-width="1"/>
+    <line x1="150" y1="30" x2="155" y2="33" stroke="#54a0ff" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -16s;">
-    <circle cx="0" cy="100" r="4" fill="#5f27cd"/>
-    <line x1="0" y1="100" x2="7" y2="96" stroke="#5f27cd" stroke-width="1.5"/>
-    <line x1="0" y1="100" x2="7" y2="104" stroke="#5f27cd" stroke-width="1.5"/>
+    <circle cx="150" cy="90" r="3" fill="#5f27cd"/>
+    <line x1="150" y1="90" x2="155" y2="87" stroke="#5f27cd" stroke-width="1"/>
+    <line x1="150" y1="90" x2="155" y2="93" stroke="#5f27cd" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -17s;">
-    <circle cx="150" cy="160" r="4" fill="#ff9ff3"/>
-    <line x1="150" y1="160" x2="157" y2="156" stroke="#ff9ff3" stroke-width="1.5"/>
-    <line x1="150" y1="160" x2="157" y2="164" stroke="#ff9ff3" stroke-width="1.5"/>
+    <circle cx="220" cy="40" r="3" fill="#ff9ff3"/>
+    <line x1="220" y1="40" x2="225" y2="37" stroke="#ff9ff3" stroke-width="1"/>
+    <line x1="220" y1="40" x2="225" y2="43" stroke="#ff9ff3" stroke-width="1"/>
   </g>
   
   <g class="agent" style="animation-delay: -18s;">
-    <circle cx="150" cy="40" r="4" fill="#feca57"/>
-    <line x1="150" y1="40" x2="157" y2="36" stroke="#feca57" stroke-width="1.5"/>
-    <line x1="150" y1="40" x2="157" y2="44" stroke="#feca57" stroke-width="1.5"/>
+    <circle cx="80" cy="85" r="3" fill="#feca57"/>
+    <line x1="80" y1="85" x2="85" y2="82" stroke="#feca57" stroke-width="1"/>
+    <line x1="80" y1="85" x2="85" y2="88" stroke="#feca57" stroke-width="1"/>
   </g>
   
-  <text x="150" y="190" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Plurality Agents</text>
+  <text x="150" y="115" font-family="Arial, sans-serif" font-size="12" fill="white" text-anchor="middle">Plurality Agents</text>
 </svg>
