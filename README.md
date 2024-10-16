@@ -1,4 +1,4 @@
-![Plurality Agents](./assets/plurality-agents.svg)
+![Plurality Agents](./assets/swarm-animation.svg)
 
 # Plurality AI Agents
 
