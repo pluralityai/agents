@@ -2,7 +2,7 @@ import { Swarm } from "../core";
 import { Agent, Response} from "../types";
 
 /**
- * Runs an interactive demo loop for the Swarm CLI.
+ * Runs an interactive demo loop for the Plurality Agents CLI.
  * @param agent - The starting agent for the conversation.
  * @param contextVariables - Optional context variables for the conversation.
  * @param stream - Whether to use streaming mode for responses.
@@ -27,7 +27,6 @@ export async function runCLI(
       if (!apiKey) {
         console.log("Please enter your OpenAI API key:");
         
-        // Use process.stdin to get API key
         apiKey = await new Promise<string>((resolve) => {
           process.stdin.once('data', (data) => {
             resolve(data.toString().trim());
@@ -73,22 +72,51 @@ export async function runCLI(
 
   const processResponse = async (response: Response | AsyncIterable<any>) => {
     if (stream && Symbol.asyncIterator in Object(response)) {
-      for await (const chunk of response as AsyncIterable<any>) {
-        if (chunk.content) {
-          process.stdout.write(
-            `${chunk.sender || "Assistant"}: ${chunk.content}\n`,
-          );
-        }
-        if (chunk.function) {
-          console.log(
-            `${chunk.sender || "Assistant"}: ${chunk.function.name}()`,
-          );
-        }
-        if (chunk.response) {
-          agent = chunk.response.agent || agent;
-          Object.assign(contextVariables, chunk.response.context_variables);
-        }
+      // let fullMessage = '';
+      // for await (const chunk of response as AsyncIterable<any>) {
+      //   if (chunk.content) {
+      //     process.stdout.write(
+      //       `${chunk.sender || "Assistant"}: ${chunk.content}\n`,
+      //     );
+      //     fullMessage += chunk.content;
+      //   }
+      //   if (chunk.function) {
+      //     console.log(
+      //       `${chunk.sender || "Assistant"}: ${chunk.function.name}()`,
+      //     );
+      //   }
+      //   if (chunk.response) {
+      //     agent = chunk.response.agent || agent;
+      //     Object.assign(contextVariables, chunk.response.context_variables);
+      //   }
+      // }
+      // console.log(`\nAssistant: ${fullMessage}`);
+      let fullMessage = '';
+  let currentLine = '';
+  
+  for await (const chunk of response as AsyncIterable<any>) {
+    if (chunk.content) {
+      currentLine += chunk.content;
+      fullMessage += chunk.content;
+      
+      // Clear the current line and rewrite it
+      process.stdout.write('\r' + ' '.repeat(process.stdout.columns));
+      process.stdout.write('\r' + currentLine);
+      
+      // If the chunk ends with a newline, reset currentLine
+      if (chunk.content.endsWith('\n')) {
+        console.log(); // Move to the next line
+        currentLine = '';
       }
+    }
+    if (chunk.function) {
+      console.log(`\n${chunk.sender || "Assistant"}: ${chunk.function.name}()`);
+    }
+    if (chunk.response) {
+      agent = chunk.response.agent || agent;
+      Object.assign(contextVariables, chunk.response.context_variables);
+    }
+  }
     } else {
       const completionResponse = response as Response;
       completionResponse.messages.forEach((msg) => {
@@ -105,7 +133,7 @@ export async function runCLI(
       agent = completionResponse.agent || agent;
       Object.assign(contextVariables, completionResponse.context_variables);
     }
-    console.log(); // New line for readability
+    console.log();
   };
 
   const handleUserInput = async (data: string) => {
@@ -117,7 +145,6 @@ export async function runCLI(
     }
 
     messages.push({ role: "user", content: userInput });
-    console.log(`User: ${userInput}`);
 
     try {
       const response = await swarm.run({
