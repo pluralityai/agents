@@ -1,5 +1,7 @@
 // core.ts
 
+import dotenv from 'dotenv';
+import path from 'path';
 import { OpenAI} from 'openai';
 import { cloneDeep } from 'es-toolkit/object';
 import { functionDescriptorToJson, logDebugMessage, mergeResponseChunk, validateFunctionArguments } from './util';
@@ -12,6 +14,12 @@ import {
 } from './types';
 import { ChatCompletion, ChatCompletionMessageToolCall, ChatCompletionChunk } from 'openai/resources';
 import { Stream } from 'openai/streaming';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const CTX_VARS_NAME = 'context_variables';
 
@@ -30,14 +38,19 @@ export class Swarm {
     private client: OpenAI;
 
     constructor(apiKey?: string) {
-        if (apiKey) {
-            this.client = new OpenAI({ apiKey });
-        } else {
-            // Default configuration
-            this.client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-        }
-    }
-    
+      console.log('Initializing Swarm...');
+      if (apiKey) {
+          console.log('Using provided API key');
+          this.client = new OpenAI({ apiKey });
+      } else {
+          console.log('Using API key from environment variables');
+          if (!process.env.OPENAI_API_KEY) {
+              console.warn('OPENAI_API_KEY not found in environment variables');
+          }
+          this.client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+      }
+      console.log('Swarm initialized successfully');
+  }
 
     private getChatCompletion(
         agent: Agent,
@@ -253,7 +266,7 @@ export class Swarm {
             if (message.tool_calls.length === 0) {
                 message.tool_calls = null;
             }
-            logDebugMessage(debug, 'Received completion:', message);
+            logDebugMessage(debug, 'Received completion:', JSON.stringify(message));
             history.push(message);
 
             if (!message.tool_calls || !execute_tools) {
@@ -335,7 +348,7 @@ export class Swarm {
             );
 
             const messageData = completion.choices[0].message;
-            logDebugMessage(debug, 'Received completion:', messageData);
+            logDebugMessage(debug, 'Received completion:', JSON.stringify(messageData));
             const message: any = { ...messageData, sender: active_agent.name };
             history.push(message); // Adjust as needed
 
