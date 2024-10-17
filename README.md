@@ -58,7 +58,13 @@ pnpm add @pluralityai/agents
 
 ## Usage
 
-Here are two examples demonstrating how to use Plurality in a Next.js application using the App Router:
+Before using Plurality, you need to set up your OpenAI API key. You have three options:
+
+1. Set the OPENAI_API_KEY environment variable.
+2. Pass the API key directly when initializing the Swarm instance.
+3. If no API key is provided, you'll be prompted to enter it when running the CLI.
+
+Here are examples demonstrating how to use Plurality in a Next.js application using the App Router:
 
 ### Example 1: Weather API Route
 

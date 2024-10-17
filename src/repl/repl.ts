@@ -7,14 +7,48 @@ import { Agent, Response} from "../types";
  * @param contextVariables - Optional context variables for the conversation.
  * @param stream - Whether to use streaming mode for responses.
  * @param debug - Whether to enable debug mode.
+ * @param apiKey - Optional OpenAI API key.
  */
 export async function runCLI(
   agent: Agent,
   contextVariables: Record<string, any> = {},
   stream: boolean = false,
   debug: boolean = false,
+  apiKey?: string
 ): Promise<void> {
-  const swarm = new Swarm();
+  let swarm: Swarm;
+
+  const initializeSwarm = async (): Promise<void> => {
+    try {
+      swarm = new Swarm(apiKey);
+    } catch (error: unknown) {
+      
+      console.error("Failed to initialize Swarm with provided API key:", error instanceof Error ? error.message : String(error));
+      if (!apiKey) {
+        console.log("Please enter your OpenAI API key:");
+        
+        // Use process.stdin to get API key
+        apiKey = await new Promise<string>((resolve) => {
+          process.stdin.once('data', (data) => {
+            resolve(data.toString().trim());
+          });
+        });
+
+        try {
+          swarm = new Swarm(apiKey);
+        } catch (error: unknown) {
+          console.error("Failed to initialize Swarm with provided API key:", error instanceof Error ? error.message : String(error));
+          process.exit(1);
+        }
+      } else {
+        console.error("Invalid API key provided.");
+        process.exit(1);
+      }
+    }
+  };
+
+  await initializeSwarm();
+
   const messages: any[] = [];
 
   console.log(`
@@ -74,7 +108,7 @@ export async function runCLI(
     console.log(); // New line for readability
   };
 
-  process.stdin.on("data", async (data: string) => {
+  const handleUserInput = async (data: string) => {
     const userInput = data.trim();
 
     if (userInput.toLowerCase() === "exit") {
@@ -100,7 +134,9 @@ export async function runCLI(
     }
 
     process.stdout.write("User: ");
-  });
+  };
+
+  process.stdin.on("data", handleUserInput);
 
   process.stdout.write("User: ");
 }

@@ -1,7 +1,5 @@
 // core.ts
 
-import dotenv from 'dotenv';
-import path from 'path';
 import { OpenAI} from 'openai';
 import { cloneDeep } from 'es-toolkit/object';
 import { functionDescriptorToJson, logDebugMessage, mergeResponseChunk, validateFunctionArguments } from './util';
@@ -14,12 +12,6 @@ import {
 } from './types';
 import { ChatCompletion, ChatCompletionMessageToolCall, ChatCompletionChunk } from 'openai/resources';
 import { Stream } from 'openai/streaming';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 const CTX_VARS_NAME = 'context_variables';
 
@@ -38,19 +30,15 @@ export class Swarm {
     private client: OpenAI;
 
     constructor(apiKey?: string) {
-      console.log('Initializing Swarm...');
-      if (apiKey) {
-          console.log('Using provided API key');
-          this.client = new OpenAI({ apiKey });
-      } else {
-          console.log('Using API key from environment variables');
-          if (!process.env.OPENAI_API_KEY) {
-              console.warn('OPENAI_API_KEY not found in environment variables');
-          }
-          this.client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      }
-      console.log('Swarm initialized successfully');
-  }
+        if (!apiKey && !process.env.OPENAI_API_KEY) {
+            throw new Error(
+                'OpenAI API key not found. Please provide it as an argument to the Swarm constructor ' +
+                'or set it as the OPENAI_API_KEY environment variable.'
+            );
+        }
+
+        this.client = new OpenAI({ apiKey: apiKey || process.env.OPENAI_API_KEY });
+    }
 
     private getChatCompletion(
         agent: Agent,
