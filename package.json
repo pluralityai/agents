@@ -1,6 +1,6 @@
 {
   "name": "@pluralityai/agents",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A lightweight, ergonomic TypeScript library for multi-agent orchestration.",
   "type": "module",
   "author": "Plurality AI <support@plurality.ai>",
