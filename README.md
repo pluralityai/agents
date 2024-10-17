@@ -1,8 +1,40 @@
+[![npm version](https://badge.fury.io/js/@pluralityai/agents.svg)](https://badge.fury.io/js/@pluralityai/agents)
+
 <img src="./assets/swarm-animation.svg" alt="Plurality Agents" height="150" width="700">
 
 # Plurality AI Agents
 
 Plurality AI Agents is a lightweight, ergonomic TypeScript library for multi-agent orchestration.
+
+## Features
+
+🤖 Advanced Agent Management
+
+- Create and orchestrate multiple agents with unique behaviors and specializations
+- Fine-tune agent personalities and knowledge bases for diverse use cases
+
+🧠 Seamless Function Integration
+
+- Easily integrate custom functions into agent workflows for enhanced capabilities
+
+🔄 Dynamic Function Execution
+
+- Execute functions dynamically based on agent context and user needs
+
+🌊 Real-time Streaming Responses
+
+- Efficiently handle and display streaming responses from the Swarm API
+- Implement progress indicators and partial updates for enhanced user experience
+
+📘 Full TypeScript Support
+
+- Enjoy a fully typed library for improved code quality and maintainability
+- Benefit from intelligent autocomplete and catch potential errors early
+
+🔍 Comprehensive Debugging
+
+- Activate debug mode for in-depth logging and performance analysis
+- Utilize built-in error handling and suggestions for quick issue resolution
 
 ## Installation
 
