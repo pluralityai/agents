@@ -60,7 +60,8 @@ export async function runCLI(
       completionResponse.messages.forEach((msg) => {
         if (msg.role === "assistant") {
           console.log(`${msg.sender || "Assistant"}: ${msg.content}`);
-          msg.tool_calls?.forEach((toolCall) => {
+          //TODO: fix typing
+          msg.tool_calls?.forEach((toolCall: any) => {
             console.log(
               `${msg.sender || "Assistant"}: ${toolCall.function.name}()`,
             );
