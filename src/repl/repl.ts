@@ -8,7 +8,7 @@ import { Agent, Response, AgentFunction } from "../types";
  * @param stream - Whether to use streaming mode for responses.
  * @param debug - Whether to enable debug mode.
  */
-export async function runDemoLoop(
+export async function runCLI(
   agent: Agent,
   contextVariables: Record<string, any> = {},
   stream: boolean = false,
