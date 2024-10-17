@@ -1,1 +1,1 @@
-export { runDemoLoop } from "./repl";
+export { runCLI } from "./repl";
