@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/@pluralityai/agents.svg)](https://badge.fury.io/js/@pluralityai/agents)
+[![npm version](https://badge.fury.io/js/@pluralityai%2Fagents.svg)](https://badge.fury.io/js/@pluralityai/agents)
 
 <img src="./assets/swarm-animation.svg" alt="Plurality Agents" height="150" width="700">
 
