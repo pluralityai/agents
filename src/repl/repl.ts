@@ -1,5 +1,5 @@
 import { Swarm } from "../core";
-import { Agent, Response, AgentFunction } from "../types";
+import { Agent, Response} from "../types";
 
 /**
  * Runs an interactive demo loop for the Swarm CLI.
