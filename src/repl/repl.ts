@@ -1,5 +1,5 @@
 import { Swarm } from "../core";
-import { Agent, Response} from "../types";
+import { Agent, Response } from "../types";
 
 /**
  * Runs an interactive demo loop for the Plurality Agents CLI.
@@ -11,6 +11,7 @@ import { Agent, Response} from "../types";
  */
 export async function runCLI(
   agent: Agent,
+  availableAgents: Agent[],
   contextVariables: Record<string, any> = {},
   stream: boolean = false,
   debug: boolean = false,
@@ -22,13 +23,15 @@ export async function runCLI(
     try {
       swarm = new Swarm(apiKey);
     } catch (error: unknown) {
-      
-      console.error("Failed to initialize Swarm with provided API key:", error instanceof Error ? error.message : String(error));
+      console.error(
+        "Failed to initialize Swarm with provided API key:",
+        error instanceof Error ? error.message : String(error)
+      );
       if (!apiKey) {
         console.log("Please enter your OpenAI API key:");
-        
+
         apiKey = await new Promise<string>((resolve) => {
-          process.stdin.once('data', (data) => {
+          process.stdin.once("data", (data) => {
             resolve(data.toString().trim());
           });
         });
@@ -36,7 +39,10 @@ export async function runCLI(
         try {
           swarm = new Swarm(apiKey);
         } catch (error: unknown) {
-          console.error("Failed to initialize Swarm with provided API key:", error instanceof Error ? error.message : String(error));
+          console.error(
+            "Failed to initialize Swarm with provided API key:",
+            error instanceof Error ? error.message : String(error)
+          );
           process.exit(1);
         }
       } else {
@@ -72,51 +78,32 @@ export async function runCLI(
 
   const processResponse = async (response: Response | AsyncIterable<any>) => {
     if (stream && Symbol.asyncIterator in Object(response)) {
-      // let fullMessage = '';
-      // for await (const chunk of response as AsyncIterable<any>) {
-      //   if (chunk.content) {
-      //     process.stdout.write(
-      //       `${chunk.sender || "Assistant"}: ${chunk.content}\n`,
-      //     );
-      //     fullMessage += chunk.content;
-      //   }
-      //   if (chunk.function) {
-      //     console.log(
-      //       `${chunk.sender || "Assistant"}: ${chunk.function.name}()`,
-      //     );
-      //   }
-      //   if (chunk.response) {
-      //     agent = chunk.response.agent || agent;
-      //     Object.assign(contextVariables, chunk.response.context_variables);
-      //   }
-      // }
-      // console.log(`\nAssistant: ${fullMessage}`);
-      let fullMessage = '';
-  let currentLine = '';
-  
-  for await (const chunk of response as AsyncIterable<any>) {
-    if (chunk.content) {
-      currentLine += chunk.content;
-      fullMessage += chunk.content;
-      
-      // Clear the current line and rewrite it
-      process.stdout.write('\r' + ' '.repeat(process.stdout.columns));
-      process.stdout.write('\r' + currentLine);
-      
-      // If the chunk ends with a newline, reset currentLine
-      if (chunk.content.endsWith('\n')) {
-        console.log(); // Move to the next line
-        currentLine = '';
+      let fullMessage = "";
+      let currentLine = "";
+
+      for await (const chunk of response as AsyncIterable<any>) {
+        if (chunk.content) {
+          currentLine += chunk.content;
+          fullMessage += chunk.content;
+
+          process.stdout.write("\r" + " ".repeat(process.stdout.columns));
+          process.stdout.write("\r" + currentLine);
+
+          if (chunk.content.endsWith("\n")) {
+            console.log();
+            currentLine = "";
+          }
+        }
+        if (chunk.function) {
+          console.log(
+            `\n${chunk.sender || "Assistant"}: ${chunk.function.name}()`
+          );
+        }
+        if (chunk.response) {
+          agent = chunk.response.agent || agent;
+          Object.assign(contextVariables, chunk.response.context_variables);
+        }
       }
-    }
-    if (chunk.function) {
-      console.log(`\n${chunk.sender || "Assistant"}: ${chunk.function.name}()`);
-    }
-    if (chunk.response) {
-      agent = chunk.response.agent || agent;
-      Object.assign(contextVariables, chunk.response.context_variables);
-    }
-  }
     } else {
       const completionResponse = response as Response;
       completionResponse.messages.forEach((msg) => {
@@ -125,7 +112,7 @@ export async function runCLI(
           //TODO: fix typing
           msg.tool_calls?.forEach((toolCall: any) => {
             console.log(
-              `${msg.sender || "Assistant"}: ${toolCall.function.name}()`,
+              `${msg.sender || "Assistant"}: ${toolCall.function.name}()`
             );
           });
         }
@@ -153,6 +140,7 @@ export async function runCLI(
         context_variables: contextVariables,
         stream,
         debug,
+        availableAgents,
       });
 
       await processResponse(response);
